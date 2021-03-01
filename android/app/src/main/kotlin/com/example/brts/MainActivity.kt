@@ -1,0 +1,6 @@
+package com.example.brts
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity: FlutterActivity() {
+}
