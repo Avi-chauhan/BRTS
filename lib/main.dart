@@ -1,9 +1,11 @@
+import 'package:brts/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'data.dart';
+import 'initial screen/login.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,20 +26,6 @@ void main() async {
   runApp(MyApp());
 }
 
-// Map<int, Color> color = {
-//   50: Color.fromRGBO(47, 25, 112, .1),
-//   100: Color.fromRGBO(47, 25, 112, .2),
-//   200: Color.fromRGBO(47, 25, 112, .3),
-//   300: Color.fromRGBO(47, 25, 112, .4),
-//   400: Color.fromRGBO(47, 25, 112, .5),
-//   500: Color.fromRGBO(47, 25, 112, .6),
-//   600: Color.fromRGBO(47, 25, 112, .7),
-//   700: Color.fromRGBO(47, 25, 112, .8),
-//   800: Color.fromRGBO(47, 25, 112, .9),
-//   900: Color.fromRGBO(47, 25, 112, 1),
-// };
-// MaterialColor colorCustom = MaterialColor(0xFF2F1970, color);
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -48,9 +36,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'BRTS ONLINE',
-      theme: ThemeData(
-        primarySwatch: colorCustom,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       initialRoute: '/', //this is an starting point of our application
       routes: routes, //all routes are stored in file 'Data.dart'
     );

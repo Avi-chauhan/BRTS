@@ -5,18 +5,19 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:async';
 
-class Data {
-  static var name = 'student', email = 'ajraval102@gmail.com', passwd, cpasswd
+import 'initial screen/login.dart';
 
-      //Members of task:
-      ;
+class Data {
+  static var name = 'student', email = 'ajraval102@gmail.com', passwd, cpasswd;
+  static var role, gender;
+  //Members of task:
 
   static void showToast(var msg1) {
     Fluttertoast.showToast(
       msg: msg1,
       // backgroundColor: HexColor("#2f1970"),
-      backgroundColor: Colors.black26,
-      textColor: Colors.white,
+      backgroundColor: Colors.white,
+      textColor: Colors.black,
     );
   }
 
