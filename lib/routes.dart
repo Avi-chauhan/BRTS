@@ -5,6 +5,6 @@ import 'package:flutter/material.dart';
 
 Map<String, WidgetBuilder> routes = {
   '/': (c) => Login(),
-  'forget_pass': (c) => ForgetPassword(),
-  'register': (c) => Register(),
+  '/forget_pass': (c) => ForgetPassword(),
+  '/register': (c) => Register(),
 };

@@ -34,7 +34,6 @@ dependencies:
   cloud_firestore_web:
   firebase:
   hexcolor:
-  image_picker:
   firebase_storage:
   datetime_picker_formfield:
   flutter_local_notifications:

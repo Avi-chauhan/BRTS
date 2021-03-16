@@ -8,8 +8,8 @@ import 'dart:async';
 import 'initial screen/login.dart';
 
 class Data {
-  static var name = 'student', email = 'ajraval102@gmail.com', passwd, cpasswd;
-  static var role, gender;
+  static var name = '', email = '', passwd = '', cpasswd = '';
+  static var gender = '', phone = '', age = '';
   //Members of task:
 
   static void showToast(var msg1) {
@@ -32,7 +32,7 @@ class Data {
       color: Colors.white,
       child: Center(
         child: CircularProgressIndicator(
-          backgroundColor: Colors.amber,
+          backgroundColor: Colors.yellow[800],
         ),
       ),
     );

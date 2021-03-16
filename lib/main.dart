@@ -10,15 +10,13 @@ import 'initial screen/login.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
   try {
     Data.getUid();
     if (FirebaseAuth.instance.currentUser.emailVerified == false) {
       Data.showToast('Please Verify your E-Mail Address');
       Data.start = Login();
     } else {
-      // Data.showToast('wait while we Logging you in...');
-      // Data.start = HomeScreen();
+      
     }
   } catch (e) {
     Data.start = Login();

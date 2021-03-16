@@ -10,7 +10,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
+
 import 'package:path/path.dart';
 
 class Register extends StatefulWidget {
@@ -46,6 +46,59 @@ class _RegisterState extends State<Register> {
     Future<int> RegisterAndSendEmailVerification() async {
       UserCredential userCredential;
 
+      try {
+        var tmp = null;
+        // Data.showToast(tmp);
+        userCredential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+                email: Data.email, password: Data.passwd)
+            .then(
+          (value) async {
+            userCredential = value;
+            await _auth.doc(value.user.uid).set({
+              'name': Data.name,
+              'Age': Data.age,
+              'Gender': Data.gender,
+              'phone': Data.phone,
+              'email': Data.email,
+              'id': value.user.uid.toString(),
+            }).then(
+              (val) async {
+                //print("<<<<<<<  UPLOAD user data >>>>>>   completed");
+                Data.showToast('Registration is Successful...');
+                FirebaseAuth.instance.currentUser.sendEmailVerification();
+                Data.showToast(
+                    'E-Mail Verification Code is Sent to Your E-mail Address');
+
+                FirebaseAuth.instance.signOut();
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => Login()),
+                    (route) => false);
+              },
+            );
+          },
+        );
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'weak-password') {
+          Data.showToast('The password provided is too weak.');
+          _state = 0;
+        } else if (e.code == 'email-already-in-use') {
+          Data.showToast('The account already exists for that email.');
+          FirebaseAuth.instance.signOut();
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => Login()),
+              (route) => false);
+        } else {
+          Data.showToast(e.message);
+          //print("Inside else");
+        }
+      } catch (e) {
+        Data.showToast("Error : ${e.toString()}");
+      }
+
       return 1;
     }
 
@@ -58,10 +111,13 @@ class _RegisterState extends State<Register> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SingleChildScrollView(
-              reverse: false,
+              // reverse: false,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  SizedBox(
+                    height: 35,
+                  ),
                   Text(
                     'Register To Ride!',
                     textAlign: TextAlign.right,
@@ -117,7 +173,7 @@ class _RegisterState extends State<Register> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     keyboardType: TextInputType.number,
                     textInputAction: TextInputAction.next,
-                    onChanged: (value) => Data.name = value,
+                    onChanged: (value) => Data.age = value,
                     decoration: InputDecoration(
                       labelText: 'Age',
                       labelStyle: TextStyle(color: Colors.white, fontSize: 16),
@@ -174,10 +230,8 @@ class _RegisterState extends State<Register> {
                             setState(() {
                               groupValue = arg;
                               value = "Male";
-                              // ans = true;
+                              ans = true;
                               Data.gender = value;
-                              //print("student........${Data.role}");
-                              // Data.role = arg;
                             });
                           },
                         ),
@@ -226,7 +280,7 @@ class _RegisterState extends State<Register> {
                     keyboardType: TextInputType.phone,
                     maxLength: 10,
                     textInputAction: TextInputAction.next,
-                    onChanged: (value) => Data.name = value,
+                    onChanged: (value) => Data.phone = value,
                     decoration: InputDecoration(
                       labelText: 'Phone',
                       labelStyle: TextStyle(color: Colors.white, fontSize: 16),
@@ -257,7 +311,7 @@ class _RegisterState extends State<Register> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     keyboardType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
-                    onChanged: (value) => Data.name = value,
+                    onChanged: (value) => Data.email = value,
                     decoration: InputDecoration(
                       labelText: 'Email',
                       labelStyle: TextStyle(color: Colors.white, fontSize: 16),
@@ -338,7 +392,7 @@ class _RegisterState extends State<Register> {
                   SizedBox(height: 15),
                   TextFormField(
                     validator: (value) {
-                      if (value.isEmpty) {
+                      if (value.trim().isEmpty) {
                         return 'Please fill this field';
                       } else if (value != Data.passwd) {
                         return 'Password mismatch';
