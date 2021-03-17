@@ -47,7 +47,7 @@ class _RegisterState extends State<Register> {
       UserCredential userCredential;
 
       try {
-        var tmp = null;
+        //var tmp = null;
         // Data.showToast(tmp);
         userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(

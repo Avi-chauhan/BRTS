@@ -10,6 +10,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import '../data.dart';
 import 'forget_pasword.dart';
+import '../initial screen/home.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -78,14 +79,7 @@ class _LoginState extends State<Login> {
               'Please Verify your E-Mail Address,we send new verification link to Your E-mail');
           FirebaseAuth.instance.signOut();
         } else {
-          if (data['verified']) {
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/dashboard', (route) => false);
-          } else {
-            FirebaseAuth.instance.signOut();
-            _state = 0;
-            Data.showToast('User not verified by Admin');
-          }
+          Navigator.pushNamedAndRemoveUntil(context, '/Home', (route) => false);
         }
       });
     } on FirebaseAuthException catch (e) {
