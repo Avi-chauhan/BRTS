@@ -134,44 +134,146 @@ class _HomePageScreenState extends State<HomePageScreen> {
               children: [
                 new Container(
                   height: 200,
-                  child: new Card(
-                    elevation: 10.0,
-                    child: Text("Trip Planner"),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: new Card(
+                      color: Colors.orange,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(17),
+                      ),
+                      elevation: 10.0,
+                      child: Column(
+                        children: [
+                          Container(
+                              height: 150,
+                              child: Image.asset(
+                                "images/maps.jpg",
+                                fit: BoxFit.fitHeight,
+                              )),
+                          Text(
+                            "Trip Planner",
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ),
                 ),
                 new Container(
                   height: 200,
                   child: new Card(
+                    color: Colors.orange,
                     elevation: 10.0,
-                    child: Text("Trip Planner"),
+                    child: Column(
+                      children: [
+                        Container(
+                            height: 150,
+                            child: Image.asset(
+                              "images/maps.jpg",
+                              fit: BoxFit.fitHeight,
+                            )),
+                        Text(
+                          "Trip Planner",
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 new Container(
                   height: 200,
                   child: new Card(
+                    color: Colors.orange,
                     elevation: 10.0,
-                    child: Text("Trip Planner"),
+                    child: Column(
+                      children: [
+                        Container(
+                            height: 150,
+                            child: Image.asset(
+                              "images/maps.jpg",
+                              fit: BoxFit.fitHeight,
+                            )),
+                        Text(
+                          "Trip Planner",
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 new Container(
                   height: 200,
                   child: new Card(
+                    color: Colors.orange,
                     elevation: 10.0,
-                    child: Text("Trip Planner"),
+                    child: Column(
+                      children: [
+                        Container(
+                            height: 150,
+                            child: Image.asset(
+                              "images/maps.jpg",
+                              fit: BoxFit.fitHeight,
+                            )),
+                        Text(
+                          "Trip Planner",
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 new Container(
                   height: 200,
                   child: new Card(
+                    color: Colors.orange,
                     elevation: 10.0,
-                    child: Text("Trip Planner"),
+                    child: Column(
+                      children: [
+                        Container(
+                            height: 150,
+                            child: Image.asset(
+                              "images/maps.jpg",
+                              fit: BoxFit.fitHeight,
+                            )),
+                        Text(
+                          "Trip Planner",
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 new Container(
                   height: 200,
                   child: new Card(
+                    color: Colors.orange,
                     elevation: 10.0,
-                    child: Text("Trip Planner"),
+                    child: Column(
+                      children: [
+                        Container(
+                            height: 150,
+                            child: Image.asset(
+                              "images/maps.jpg",
+                              fit: BoxFit.fitHeight,
+                            )),
+                        Text(
+                          "Trip Planner",
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],

@@ -79,6 +79,7 @@ class _LoginState extends State<Login> {
               'Please Verify your E-Mail Address,we send new verification link to Your E-mail');
           FirebaseAuth.instance.signOut();
         } else {
+          
           Navigator.pushNamedAndRemoveUntil(context, '/Home', (route) => false);
         }
       });
