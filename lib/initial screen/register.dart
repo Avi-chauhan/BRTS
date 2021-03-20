@@ -31,7 +31,7 @@ class _RegisterState extends State<Register> {
   void initState() {
     super.initState();
     groupValue = 0;
-    value = 'student';
+    value = 'Male';
     __passwordVisible1 = false;
     __passwordVisible2 = false;
     ans = true;

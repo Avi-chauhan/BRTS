@@ -72,15 +72,25 @@ class _LoginState extends State<Login> {
         Map<String, dynamic> data = snapshot.data();
         if (!auth.currentUser.emailVerified) {
           _state = 0;
-
           auth.currentUser.sendEmailVerification();
 
           Data.showToast(
               'Please Verify your E-Mail Address,we send new verification link to Your E-mail');
           FirebaseAuth.instance.signOut();
         } else {
-          
-          Navigator.pushNamedAndRemoveUntil(context, '/Home', (route) => false);
+          var a = await FirebaseFirestore.instance
+              .collection("users")
+              .doc(Data.getUid())
+              .get();
+          var b;
+          b = a.data()['name'];
+          print('gggggggggggggggggggggggggggg$b');
+          if (b != 'Admin')
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/Home', (route) => false);
+          else
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/adminhome', (route) => false);
         }
       });
     } on FirebaseAuthException catch (e) {
@@ -114,218 +124,197 @@ class _LoginState extends State<Login> {
         body: SingleChildScrollView(
           padding: EdgeInsets.fromLTRB(0, 20, 0, 100),
           // reverse: true,
-          child: FutureBuilder(
-              future: getFutureWidget(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return Form(
-                    key: _formKey,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          // color: Colors.greenAccent,
-                          borderRadius: BorderRadius.circular(18),
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  // color: Colors.greenAccent,
+                  borderRadius: BorderRadius.circular(18),
+                ),
+                padding: EdgeInsets.all(18.0),
+
+                // color: Colors.orange[200],
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    SizedBox(height: 90),
+                    Text(
+                      'Online BRTS',
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                          fontSize: 26,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    Text(
+                      'Sign In',
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                          fontSize: 26,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(height: 15),
+                    TextFormField(
+                      autofocus: false,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value.isNotEmpty) {
+                          return null;
+                        }
+                        return 'Please fill this field.';
+                      },
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        filled: true,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Colors.white, width: 2), //starting
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        padding: EdgeInsets.all(18.0),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Colors.white, width: 2), //onwriting
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        contentPadding: EdgeInsets.fromLTRB(20, 20, 0, 8),
+                        labelStyle:
+                            TextStyle(color: Colors.white, fontSize: 16),
+                        prefixIcon: Icon(
+                          Icons.email_sharp,
+                          color: Colors.white,
+                        ),
+                        labelText: 'E-Mail',
+                      ),
+                      onChanged: (val) {
+                        email = val;
+                      },
+                      style: TextStyle(color: Colors.black, fontSize: 16),
+                    ),
+                    SizedBox(height: 15),
+                    TextFormField(
+                      style: TextStyle(color: Colors.black, fontSize: 16),
 
-                        // color: Colors.orange[200],
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            SizedBox(height: 90),
-                            Text(
-                              'Online BRTS',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontSize: 26,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            Text(
-                              'Sign In',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontSize: 26,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            SizedBox(height: 15),
-                            TextFormField(
-                              autofocus: false,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              validator: (value) {
-                                if (value.isNotEmpty) {
-                                  return null;
-                                }
-                                return 'Please fill this field.';
-                              },
-                              textInputAction: TextInputAction.next,
-                              keyboardType: TextInputType.emailAddress,
-                              decoration: InputDecoration(
-                                filled: true,
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors.white, width: 2), //starting
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors.white,
-                                      width: 2), //onwriting
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                contentPadding:
-                                    EdgeInsets.fromLTRB(20, 20, 0, 8),
-                                labelStyle: TextStyle(
-                                    color: Colors.white, fontSize: 16),
-                                prefixIcon: Icon(
-                                  Icons.email_sharp,
-                                  color: Colors.white,
-                                ),
-                                labelText: 'E-Mail',
-                              ),
-                              onChanged: (val) {
-                                email = val;
-                              },
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 16),
-                            ),
-                            SizedBox(height: 15),
-                            TextFormField(
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 16),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value.isNotEmpty) {
+                          return null;
+                        }
 
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              validator: (value) {
-                                if (value.isNotEmpty) {
-                                  return null;
-                                }
-
-                                return 'Please fill this field.';
-                              },
-                              // focusNode: FocusNode(canRequestFocus: true),
-                              obscureText: !__passwordVisible,
-                              onChanged: (val) => passwd = val,
-                              decoration: InputDecoration(
-                                prefixIcon:
-                                    Icon(Icons.vpn_key, color: Colors.white),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors.white, width: 2), //starting
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors.white,
-                                      width: 2), //onwriting
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                contentPadding:
-                                    EdgeInsets.fromLTRB(20, 20, 0, 8),
-                                labelStyle: TextStyle(
-                                    color: Colors.white, fontSize: 16),
-                                fillColor: Colors.white,
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    // Based on passwordVisible state choose the icon
-                                    __passwordVisible
-                                        ? Icons.visibility
-                                        : Icons.visibility_off,
-                                    color: Colors.white,
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      __passwordVisible = !__passwordVisible;
-                                    });
-                                  },
-                                ),
-                                labelText: 'Password',
-                                floatingLabelBehavior:
-                                    FloatingLabelBehavior.auto,
-                              ),
-                            ),
-                            SizedBox(height: 15),
-                            Container(
-                                height: 38,
-                                width: double.infinity,
-                                child: new MaterialButton(
-                                    child: setUpButtonChild(),
-                                    onPressed: () {
-                                      if (_formKey.currentState.validate()) {
-                                        _state = 0;
-                                        setState(() {
-                                          if (_state == 0) {
-                                            animateButton();
-                                          }
-                                        });
-                                        validateAndException();
-                                      }
-                                    },
-                                    textColor: Colors.white,
-                                    elevation: 6,
-                                    splashColor: Colors.orange,
-                                    //minWidth: double.infinity,
-                                    height: 68.0,
-                                    color: Colors.redAccent)),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              child: Align(
-                                alignment: Alignment.centerRight,
-                                child: GestureDetector(
-                                  child: Text(
-                                    'Forgot Password?',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 17),
-                                  ),
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ForgetPassword()));
-                                  },
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 30,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                CircularProgressIndicator(
-                                  backgroundColor: Colors.white,
-                                  // valueColor: Colors.amber,
-                                );
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => Register(),
-                                    ));
-                              },
-                              child: Text(
-                                'New User? Register Here',
-                                style: TextStyle(
-                                  fontSize: 19.0,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ],
+                        return 'Please fill this field.';
+                      },
+                      // focusNode: FocusNode(canRequestFocus: true),
+                      obscureText: !__passwordVisible,
+                      onChanged: (val) => passwd = val,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.vpn_key, color: Colors.white),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Colors.white, width: 2), //starting
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Colors.white, width: 2), //onwriting
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        contentPadding: EdgeInsets.fromLTRB(20, 20, 0, 8),
+                        labelStyle:
+                            TextStyle(color: Colors.white, fontSize: 16),
+                        fillColor: Colors.white,
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            // Based on passwordVisible state choose the icon
+                            __passwordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              __passwordVisible = !__passwordVisible;
+                            });
+                          },
+                        ),
+                        labelText: 'Password',
+                        floatingLabelBehavior: FloatingLabelBehavior.auto,
+                      ),
+                    ),
+                    SizedBox(height: 15),
+                    Container(
+                        height: 38,
+                        width: double.infinity,
+                        child: new MaterialButton(
+                            child: setUpButtonChild(),
+                            onPressed: () {
+                              if (_formKey.currentState.validate()) {
+                                _state = 0;
+                                setState(() {
+                                  if (_state == 0) {
+                                    animateButton();
+                                  }
+                                });
+                                validateAndException();
+                              }
+                            },
+                            textColor: Colors.white,
+                            elevation: 6,
+                            splashColor: Colors.orange,
+                            //minWidth: double.infinity,
+                            height: 68.0,
+                            color: Colors.redAccent)),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: GestureDetector(
+                          child: Text(
+                            'Forgot Password?',
+                            style: TextStyle(color: Colors.white, fontSize: 17),
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ForgetPassword()));
+                          },
                         ),
                       ),
                     ),
-                  );
-                }
-                return Data.loadingDialog();
-              }
-              // },
+                    SizedBox(
+                      height: 30,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        CircularProgressIndicator(
+                          backgroundColor: Colors.white,
+                          // valueColor: Colors.amber,
+                        );
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Register(),
+                            ));
+                      },
+                      child: Text(
+                        'New User? Register Here',
+                        style: TextStyle(
+                          fontSize: 19.0,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
+            ),
+          ),
         ),
       ),
     );
