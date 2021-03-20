@@ -141,7 +141,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(17),
                       ),
-                      elevation: 10.0,
+                      elevation: 12.0,
                       child: Column(
                         children: [
                           Container(
