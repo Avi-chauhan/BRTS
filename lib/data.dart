@@ -8,8 +8,8 @@ import 'dart:async';
 import 'initial screen/login.dart';
 
 class Data {
-  static var name = '', email = '', passwd = '', cpasswd = '';
-  static var gender = 'Male', phone = '', age = '';
+  static var name, email, passwd, cpasswd;
+  static var gender = 'Male', phone, age;
   //Members of task:
 
   static void showToast(var msg1) {
@@ -18,6 +18,15 @@ class Data {
       // backgroundColor: HexColor("#2f1970"),
       backgroundColor: Colors.white,
       textColor: Colors.black,
+    );
+  }
+
+  static void showToast1(var msg1) {
+    Fluttertoast.showToast(
+      msg: msg1,
+      // backgroundColor: HexColor("#2f1970"),
+      backgroundColor: Colors.black,
+      textColor: Colors.white,
     );
   }
 

@@ -78,7 +78,19 @@ class _LoginState extends State<Login> {
               'Please Verify your E-Mail Address,we send new verification link to Your E-mail');
           FirebaseAuth.instance.signOut();
         } else {
-          Navigator.pushNamedAndRemoveUntil(context, '/Home', (route) => false);
+          var a = await FirebaseFirestore.instance
+              .collection("users")
+              .doc(Data.getUid())
+              .get();
+          var b;
+          b = a.data()['name'];
+          print('gggggggggggggggggggggggggggg$b');
+          if (b != 'Admin')
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/Home', (route) => false);
+          else
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/adminhome', (route) => false);
         }
       });
     } on FirebaseAuthException catch (e) {

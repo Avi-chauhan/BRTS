@@ -10,13 +10,13 @@ import 'package:intl/intl.dart';
 import 'dart:async';
 import 'package:marquee/marquee.dart';
 
-class Home extends StatelessWidget {
+class Admin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: new AppBar(
-          title: new Text("Surat BRTS"),
+          title: new Text("Welcome Admin !"),
           backgroundColor: Colors.yellow[800],
         ),
         drawer: Drawer(
@@ -33,19 +33,7 @@ class Home extends StatelessWidget {
                 ),
               ),
               ListTile(
-                title: Text('My Trips'),
-                onTap: () => {},
-              ),
-              ListTile(
-                title: Text('My Transactions'),
-                onTap: () => {},
-              ),
-              ListTile(
-                title: Text('Feedback'),
-                onTap: () => {},
-              ),
-              ListTile(
-                title: Text('Contact Us'),
+                title: Text('View Feedback'),
                 onTap: () => {},
               ),
               ListTile(
@@ -85,18 +73,18 @@ class Home extends StatelessWidget {
             ],
           ),
         ),
-        body: HomePageScreen(),
+        body: AdminPageScreen(),
       ),
     );
   }
 }
 
-class HomePageScreen extends StatefulWidget {
+class AdminPageScreen extends StatefulWidget {
   @override
-  _HomePageScreenState createState() => _HomePageScreenState();
+  _AdminPageScreenState createState() => _AdminPageScreenState();
 }
 
-class _HomePageScreenState extends State<HomePageScreen> {
+class _AdminPageScreenState extends State<AdminPageScreen> {
   String _timeString;
   void _getTime() {
     final DateTime now = DateTime.now();
@@ -139,57 +127,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
           child: SafeArea(
             child: Column(
               children: [
-                new Container(
-                  height: MediaQuery.of(context).size.height / 4,
-                  width: MediaQuery.of(context).size.width,
-                  child: Stack(alignment: Alignment.center, children: [
-                    Image.asset(
-                      'images/cloud.jpg',
-                      fit: BoxFit.fill,
-                      width: MediaQuery.of(context).size.width,
-                      height: 250,
-                    ),
-                    Marquee(
-                      text: "Welcome To BRTS",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      scrollAxis: Axis.horizontal,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      blankSpace: 10.0,
-                      velocity: 100.0,
-                      pauseAfterRound: Duration(seconds: 0),
-                      startPadding: 10.0,
-                      accelerationDuration: Duration(seconds: 1),
-                      accelerationCurve: Curves.bounceOut,
-                      decelerationDuration: Duration(milliseconds: 500),
-                      decelerationCurve: Curves.easeOut,
-                    ),
-                    Row(children: [
-                      SizedBox(
-                        width: 225,
-                      ),
-                      Icon(
-                        Icons.access_time_outlined,
-                        size: 34.0,
-                        color: Colors.black,
-                      ),
-                      Text(
-                        _timeString,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ]),
-                  ]),
+                SizedBox(
+                  height: 40,
                 ),
                 SingleChildScrollView(
                   child: SafeArea(
                     child: Container(
-                      height: 460,
+                      height: 800,
                       child: GridView.count(
                         crossAxisCount: 2,
                         scrollDirection: Axis.vertical,
@@ -210,12 +154,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       Container(
                                           height: 140,
                                           child: Icon(
-                                            Icons.book_online,
+                                            Icons.add_road,
                                             color: Colors.red,
                                             size: 70,
                                           )),
                                       Text(
-                                        "Book Ticket",
+                                        "Modify stations",
                                         style: TextStyle(
                                             fontSize: 18,
                                             color: Colors.white,
@@ -243,12 +187,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       Container(
                                           height: 140,
                                           child: Icon(
-                                            Icons.calendar_today,
+                                            Icons.date_range,
                                             color: Colors.red,
                                             size: 70,
                                           )),
                                       Text(
-                                        "Schedule",
+                                        "Modify Schedule",
                                         style: TextStyle(
                                             fontSize: 18,
                                             color: Colors.white,
@@ -276,12 +220,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       Container(
                                           height: 140,
                                           child: Icon(
-                                            Icons.room,
+                                            Icons.edit_location,
                                             color: Colors.red,
                                             size: 70,
                                           )),
                                       Text(
-                                        "Stops",
+                                        "Modify Routes",
                                         style: TextStyle(
                                             fontSize: 18,
                                             color: Colors.white,
@@ -309,12 +253,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       Container(
                                           height: 140,
                                           child: Icon(
-                                            Icons.confirmation_number,
+                                            Icons.directions_bus,
                                             color: Colors.red,
                                             size: 70,
                                           )),
                                       Text(
-                                        "My Tickets",
+                                        "Modify Bus",
                                         style: TextStyle(
                                             fontSize: 18,
                                             color: Colors.white,
@@ -342,12 +286,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       Container(
                                           height: 140,
                                           child: Icon(
-                                            Icons.star,
+                                            Icons.attach_money,
                                             color: Colors.red,
                                             size: 70,
                                           )),
                                       Text(
-                                        "My Routes",
+                                        "Modify Fair",
                                         style: TextStyle(
                                             fontSize: 18,
                                             color: Colors.white,

@@ -1,4 +1,6 @@
+import 'package:brts/Adminscreen.dart/Adminhome.dart';
 import 'package:brts/routes.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,18 @@ void main() async {
     if (FirebaseAuth.instance.currentUser.emailVerified == false) {
       Data.showToast('Please Verify your E-Mail Address');
       Data.start = Login();
-    } else {}
+    } else {
+      var a = await FirebaseFirestore.instance
+          .collection("users")
+          .doc(Data.getUid())
+          .get();
+      var b;
+      b = a.data()['name'];
+      if (b != 'Admin')
+        Data.start = Home();
+      else
+        Data.start = Admin();
+    }
   } catch (e) {
     Data.start = Login();
   }
