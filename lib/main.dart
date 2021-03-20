@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 
 import 'data.dart';
 import 'initial screen/login.dart';
+import 'initial screen/home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,9 +16,7 @@ void main() async {
     if (FirebaseAuth.instance.currentUser.emailVerified == false) {
       Data.showToast('Please Verify your E-Mail Address');
       Data.start = Login();
-    } else {
-      
-    }
+    } else {}
   } catch (e) {
     Data.start = Login();
   }
