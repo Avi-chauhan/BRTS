@@ -9,7 +9,7 @@ import 'initial screen/login.dart';
 
 class Data {
   static var name = '', email = '', passwd = '', cpasswd = '';
-  static var gender = '', phone = '', age = '';
+  static var gender = 'Male', phone = '', age = '';
   //Members of task:
 
   static void showToast(var msg1) {

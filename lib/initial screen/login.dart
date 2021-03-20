@@ -71,21 +71,14 @@ class _LoginState extends State<Login> {
         Map<String, dynamic> data = snapshot.data();
         if (!auth.currentUser.emailVerified) {
           _state = 0;
-
           auth.currentUser.sendEmailVerification();
 
           Data.showToast(
               'Please Verify your E-Mail Address,we send new verification link to Your E-mail');
           FirebaseAuth.instance.signOut();
         } else {
-          if (data['verified']) {
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/dashboard', (route) => false);
-          } else {
-            FirebaseAuth.instance.signOut();
-            _state = 0;
-            Data.showToast('User not verified by Admin');
-          }
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/dashboard', (route) => false);
         }
       });
     } on FirebaseAuthException catch (e) {
