@@ -54,7 +54,7 @@ class _bookticketScreenState extends State<bookticketScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.orange,
+      // color: Colors.white,
       child: Column(
         children: [
           SizedBox(
@@ -75,52 +75,50 @@ class _bookticketScreenState extends State<bookticketScreen> {
             textInputAction: TextInputAction.next,
             decoration: InputDecoration(
               labelText: 'From',
-              labelStyle: TextStyle(color: Colors.white, fontSize: 22),
+              labelStyle: TextStyle(color: Colors.black, fontSize: 22),
               floatingLabelBehavior: FloatingLabelBehavior.auto,
               enabledBorder: OutlineInputBorder(
                 borderSide:
-                    BorderSide(color: Colors.white, width: 2), //starting
+                    BorderSide(color: Colors.black, width: 2), //starting
                 borderRadius: BorderRadius.circular(10),
               ),
               border: OutlineInputBorder(
                 borderSide:
-                    BorderSide(color: Colors.white, width: 2), //onwriting
+                    BorderSide(color: Colors.black, width: 2), //onwriting
                 borderRadius: BorderRadius.circular(12),
               ),
-              prefixIcon: Icon(Icons.location_city, color: Colors.white),
+              prefixIcon: Icon(Icons.location_city, color: Colors.black),
             ),
           ),
           SizedBox(
-            height: 10,
-          ),
-          Icon(Icons.arrow_drop_up),
-          SizedBox(
-            height: 10,
+            height: 25,
           ),
           new TextFormField(
             keyboardType: TextInputType.text,
             textInputAction: TextInputAction.next,
             decoration: InputDecoration(
               labelText: 'To',
-              labelStyle: TextStyle(color: Colors.white, fontSize: 22),
+              labelStyle: TextStyle(color: Colors.black, fontSize: 22),
               floatingLabelBehavior: FloatingLabelBehavior.auto,
               enabledBorder: OutlineInputBorder(
                 borderSide:
-                    BorderSide(color: Colors.white, width: 2), //starting
+                    BorderSide(color: Colors.black, width: 2), //starting
                 borderRadius: BorderRadius.circular(10),
               ),
               border: OutlineInputBorder(
                 borderSide:
-                    BorderSide(color: Colors.white, width: 2), //onwriting
+                    BorderSide(color: Colors.black, width: 2), //onwriting
                 borderRadius: BorderRadius.circular(12),
               ),
-              prefixIcon: Icon(Icons.location_city, color: Colors.white),
+              prefixIcon: Icon(Icons.location_city, color: Colors.black),
             ),
           ),
           SizedBox(height: 25),
           RaisedButton(
             onPressed: () => {},
-            child: Text("Pay to Ride"),
+            color: Colors.redAccent,
+            textColor: Colors.white,
+            child: Text("Find Bus"),
           )
         ],
       ),
