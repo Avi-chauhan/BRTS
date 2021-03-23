@@ -12,26 +12,54 @@ class view_feedback extends StatefulWidget {
 }
 
 class _view_feedbackState extends State<view_feedback> {
+  List feedback_list = [];
+  List user_phone = [];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: new AppBar(
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.black,
+          appBar: new AppBar(
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
+              onPressed: () => Navigator.of(context).pop(),
             ),
-            onPressed: () => Navigator.of(context).pop(),
+            title: new Text("View Feedback"),
+            backgroundColor: Colors.yellow[800],
           ),
-          title: new Text("Surat BRTS"),
-          backgroundColor: Colors.yellow[800],
-        ),
-        body: view_feedbackScreen(),
-      ),
+          body: FutureBuilder(
+              future: fetchData(),
+              builder: (context, snapshot) {
+                try {
+                  if (snapshot.hasData) {
+                    if (feedback_list.length > 0) {
+                      print("...........$feedback_list");
+                      return ListView(
+                        children: [
+                          for (int i = 0; i < feedback_list.length; ++i)
+                            feedback_card(feedback_list[i], user_phone[i]),
+                        ],
+                      );
+                    }
+                  } else
+                    return Center(
+                      child: Container(
+                        child: Text("No feedbacks..."),
+                      ),
+                    );
+                } catch (e) {
+                  Text("hi exception....");
+                }
+                return Center(
+                  child: Container(
+                      child:
+                          Text("Loading....", style: TextStyle(fontSize: 30))),
+                );
+              })),
     );
   }
-}
 
 class view_feedbackScreen extends StatelessWidget {
   // final String documentId;
