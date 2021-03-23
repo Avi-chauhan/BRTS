@@ -21,6 +21,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  
   flutter:
     sdk: flutter
   async_builder: ^1.2.0
@@ -45,6 +46,8 @@ dependencies:
   flutter_slidable:
   animations:
   file_picker: 1.12.0
+  font_awesome_flutter: ^8.8.1
+  url_launcher: ^6.0.2
 
 
   # The following adds the Cupertino Icons font to your application.

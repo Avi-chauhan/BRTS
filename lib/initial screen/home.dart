@@ -1,4 +1,14 @@
 import 'package:brts/data.dart';
+import 'package:brts/drawerscreen/mytrips.dart';
+import 'package:brts/homescreen/bookticket.dart';
+import 'package:brts/homescreen/myroutes.dart';
+import 'package:brts/homescreen/mytickets.dart';
+import 'package:brts/homescreen/schedule.dart';
+import 'package:brts/homescreen/stops.dart';
+import 'package:brts/homescreen/suratmap.dart';
+import 'package:brts/drawerscreen/contactus.dart';
+import 'package:brts/drawerscreen/feedback.dart';
+import 'package:brts/drawerscreen/mytransaction.dart';
 import 'package:brts/initial%20screen/login.dart';
 import "package:flutter/material.dart";
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,19 +44,31 @@ class Home extends StatelessWidget {
               ),
               ListTile(
                 title: Text('My Trips'),
-                onTap: () => {},
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => mytrips()));
+                },
               ),
               ListTile(
                 title: Text('My Transactions'),
-                onTap: () => {},
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => mytransaction()));
+                },
               ),
               ListTile(
                 title: Text('Feedback'),
-                onTap: () => {},
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => feedback()));
+                },
               ),
               ListTile(
                 title: Text('Contact Us'),
-                onTap: () => {},
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => contactus()));
+                },
               ),
               ListTile(
                   title: Text('Logout'),
@@ -140,32 +162,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
             child: Column(
               children: [
                 new Container(
-<<<<<<< HEAD
-                  height: 200,
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: new Card(
-                      color: Colors.orange,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(17),
-                      ),
-                      elevation: 12.0,
-                      child: Column(
-                        children: [
-                          Container(
-                              height: 150,
-                              child: Image.asset(
-                                "images/maps.jpg",
-                                fit: BoxFit.fitHeight,
-                              )),
-                          Text(
-                            "Trip Planner",
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                          )
-                        ],
-=======
                   height: MediaQuery.of(context).size.height / 4,
                   width: MediaQuery.of(context).size.width,
                   child: Stack(alignment: Alignment.center, children: [
@@ -180,7 +176,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
->>>>>>> 5d5f4f4f657175a8d80805d25ef2e7c637efaf71
                       ),
                       scrollAxis: Axis.horizontal,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -221,199 +216,247 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         crossAxisCount: 2,
                         scrollDirection: Axis.vertical,
                         children: [
-                          new Container(
-                            height: 200,
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: new Card(
-                                color: Colors.yellow[800],
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(17),
-                                ),
-                                elevation: 8.0,
-                                child: SafeArea(
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                          height: 140,
-                                          child: Icon(
-                                            Icons.book_online,
-                                            color: Colors.red,
-                                            size: 70,
-                                          )),
-                                      Text(
-                                        "Book Ticket",
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      )
-                                    ],
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => bookticket()));
+                            },
+                            child: new Container(
+                              height: 200,
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: new Card(
+                                  color: Colors.yellow[800],
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(17),
+                                  ),
+                                  elevation: 8.0,
+                                  child: SafeArea(
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                            height: 140,
+                                            child: Icon(
+                                              Icons.book_online,
+                                              color: Colors.red,
+                                              size: 70,
+                                            )),
+                                        Text(
+                                          "Book Ticket",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                          new Container(
-                            height: 200,
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: new Card(
-                                color: Colors.yellow[800],
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(17),
-                                ),
-                                elevation: 8.0,
-                                child: SafeArea(
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                          height: 140,
-                                          child: Icon(
-                                            Icons.calendar_today,
-                                            color: Colors.red,
-                                            size: 70,
-                                          )),
-                                      Text(
-                                        "Schedule",
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      )
-                                    ],
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => schedule()));
+                            },
+                            child: new Container(
+                              height: 200,
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: new Card(
+                                  color: Colors.yellow[800],
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(17),
+                                  ),
+                                  elevation: 8.0,
+                                  child: SafeArea(
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                            height: 140,
+                                            child: Icon(
+                                              Icons.calendar_today,
+                                              color: Colors.red,
+                                              size: 70,
+                                            )),
+                                        Text(
+                                          "Schedule",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                          new Container(
-                            height: 200,
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: new Card(
-                                color: Colors.yellow[800],
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(17),
-                                ),
-                                elevation: 8.0,
-                                child: SafeArea(
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                          height: 140,
-                                          child: Icon(
-                                            Icons.room,
-                                            color: Colors.red,
-                                            size: 70,
-                                          )),
-                                      Text(
-                                        "Stops",
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      )
-                                    ],
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => stops()));
+                            },
+                            child: new Container(
+                              height: 200,
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: new Card(
+                                  color: Colors.yellow[800],
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(17),
+                                  ),
+                                  elevation: 8.0,
+                                  child: SafeArea(
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                            height: 140,
+                                            child: Icon(
+                                              Icons.room,
+                                              color: Colors.red,
+                                              size: 70,
+                                            )),
+                                        Text(
+                                          "Stops",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                          new Container(
-                            height: 200,
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: new Card(
-                                color: Colors.yellow[800],
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(17),
-                                ),
-                                elevation: 8.0,
-                                child: SafeArea(
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                          height: 140,
-                                          child: Icon(
-                                            Icons.confirmation_number,
-                                            color: Colors.red,
-                                            size: 70,
-                                          )),
-                                      Text(
-                                        "My Tickets",
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      )
-                                    ],
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => mytickets()));
+                            },
+                            child: new Container(
+                              height: 200,
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: new Card(
+                                  color: Colors.yellow[800],
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(17),
+                                  ),
+                                  elevation: 8.0,
+                                  child: SafeArea(
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                            height: 140,
+                                            child: Icon(
+                                              Icons.confirmation_number,
+                                              color: Colors.red,
+                                              size: 70,
+                                            )),
+                                        Text(
+                                          "My Tickets",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                          new Container(
-                            height: 200,
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: new Card(
-                                color: Colors.yellow[800],
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(17),
-                                ),
-                                elevation: 8.0,
-                                child: SafeArea(
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                          height: 140,
-                                          child: Icon(
-                                            Icons.star,
-                                            color: Colors.red,
-                                            size: 70,
-                                          )),
-                                      Text(
-                                        "My Routes",
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      )
-                                    ],
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => myroutes()));
+                            },
+                            child: new Container(
+                              height: 200,
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: new Card(
+                                  color: Colors.yellow[800],
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(17),
+                                  ),
+                                  elevation: 8.0,
+                                  child: SafeArea(
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                            height: 140,
+                                            child: Icon(
+                                              Icons.star,
+                                              color: Colors.red,
+                                              size: 70,
+                                            )),
+                                        Text(
+                                          "My Routes",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                          new Container(
-                            height: 200,
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: new Card(
-                                color: Colors.yellow[800],
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(17),
-                                ),
-                                elevation: 8.0,
-                                child: SafeArea(
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                          height: 140,
-                                          child: Icon(
-                                            Icons.map,
-                                            color: Colors.red,
-                                            size: 70,
-                                          )),
-                                      Text(
-                                        "Surat Map",
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      )
-                                    ],
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => suratmap()));
+                            },
+                            child: new Container(
+                              height: 200,
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: new Card(
+                                  color: Colors.yellow[800],
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(17),
+                                  ),
+                                  elevation: 8.0,
+                                  child: SafeArea(
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                            height: 140,
+                                            child: Icon(
+                                              Icons.map,
+                                              color: Colors.red,
+                                              size: 70,
+                                            )),
+                                        Text(
+                                          "Surat Map",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),

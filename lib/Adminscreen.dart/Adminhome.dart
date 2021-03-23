@@ -9,6 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
 import 'package:marquee/marquee.dart';
+import 'package:brts/Adminscreen.dart/view_feedback.dart';
 
 class Admin extends StatelessWidget {
   @override
@@ -34,7 +35,10 @@ class Admin extends StatelessWidget {
               ),
               ListTile(
                 title: Text('View Feedback'),
-                onTap: () => {},
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => view_feedback()));
+                },
               ),
               ListTile(
                   title: Text('Logout'),
