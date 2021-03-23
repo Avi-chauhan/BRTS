@@ -1,6 +1,8 @@
 // import 'dart:html';
 
 // import 'package:firebase/firestore.dart';
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -31,34 +33,35 @@ class _view_feedbackState extends State<view_feedback> {
   }
 }
 
-class view_feedbackScreen extends StatefulWidget {
-  @override
-  _view_feedbackScreenState createState() => _view_feedbackScreenState();
-}
+class view_feedbackScreen extends StatelessWidget {
+  // final String documentId;
 
-class _view_feedbackScreenState extends State<view_feedbackScreen> {
+  // const view_feedbackScreen({Key key, this.documentId}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<QuerySnapshot>(
-        // <2> Pass `Future<QuerySnapshot>` to future
-        future: FirebaseFirestore.instance.collection('feedback').get(),
-        // ignore: missing_return
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            // <3> Retrieve `List<DocumentSnapshot>` from snapshot
-            final List<DocumentSnapshot> documents = snapshot.data.docs;
-            return ListView(
-                children: documents
-                    .map((doc) => Card(
-                          child: ListTile(
-                            title: Text(doc['user_id']),
-                            subtitle: Text(doc['comment']),
-                          ),
-                        ))
-                    .toList());
-          } else if (snapshot.hasError) {
-            return Text('Its Error!');
-          }
-        });
+    CollectionReference feedback =
+        FirebaseFirestore.instance.collection('feedback');
+
+    return FutureBuilder<DocumentSnapshot>(
+      future: feedback.doc.get().then((QuerySnapshot qs) => {
+            qs.docs.forEach((element) {
+              print(element['comment']);
+            })
+          }),
+      builder:
+          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Text("Something went wrong");
+        }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          Map<String, dynamic> data = snapshot.data.data();
+          return Text("Full Name: ${data['comment']} ${data['user_id']}");
+        }
+
+        return Text("loading");
+      },
+    );
   }
 }
