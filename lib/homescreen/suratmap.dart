@@ -18,6 +18,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
 import 'package:marquee/marquee.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class suratmap extends StatefulWidget {
   @override
@@ -40,8 +41,67 @@ class _suratmapState extends State<suratmap> {
           title: new Text("Surat BRTS"),
           backgroundColor: Colors.yellow[800],
         ),
-        // body: mytripsScreen(),
+        body: suratmapScreen(),
       ),
     );
   }
+}
+
+class suratmapScreen extends StatefulWidget {
+  @override
+  _suratmapScreenState createState() => _suratmapScreenState();
+}
+
+class _suratmapScreenState extends State<suratmapScreen> {
+  Completer<GoogleMapController> _controller = Completer();
+  MapType _currentMapType = MapType.normal;
+  static const LatLng _center = const LatLng(21.170240, 72.831062);
+
+  void _onMapCreated(GoogleMapController controller) {
+    _controller.complete(controller);
+  }
+
+  void _onMapTypeButtonPressed() {
+    setState(() {
+      _currentMapType = _currentMapType == MapType.normal
+          ? MapType.satellite
+          : MapType.normal;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Scaffold(
+          body: GoogleMap(
+            onMapCreated: _onMapCreated,
+            mapType: _currentMapType,
+            initialCameraPosition: CameraPosition(
+              target: _center,
+              zoom: 10.0,
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Align(
+            alignment: Alignment.topRight,
+            child: FloatingActionButton(
+              onPressed: () => _onMapTypeButtonPressed(),
+              materialTapTargetSize: MaterialTapTargetSize.padded,
+              backgroundColor: Colors.green,
+              child: const Icon(Icons.map, size: 36.0),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+@override
+Widget build(BuildContext context) {
+  // TODO: implement build
+  throw UnimplementedError();
 }

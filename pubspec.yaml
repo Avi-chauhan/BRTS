@@ -48,6 +48,7 @@ dependencies:
   file_picker: 1.12.0
   font_awesome_flutter: 
   url_launcher: 
+  google_maps_flutter: 
 
 
   # The following adds the Cupertino Icons font to your application.

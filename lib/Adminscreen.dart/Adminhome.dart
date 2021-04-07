@@ -9,6 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
 import 'package:marquee/marquee.dart';
+import 'package:brts/Adminscreen.dart/map.dart';
 import 'package:brts/Adminscreen.dart/view_feedback.dart';
 
 class Admin extends StatelessWidget {
@@ -307,34 +308,42 @@ class _AdminPageScreenState extends State<AdminPageScreen> {
                               ),
                             ),
                           ),
-                          new Container(
-                            height: 200,
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: new Card(
-                                color: Colors.yellow[800],
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(17),
-                                ),
-                                elevation: 8.0,
-                                child: SafeArea(
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                          height: 140,
-                                          child: Icon(
-                                            Icons.map,
-                                            color: Colors.red,
-                                            size: 70,
-                                          )),
-                                      Text(
-                                        "Surat Map",
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      )
-                                    ],
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => map()));
+                            },
+                            child: new Container(
+                              height: 200,
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: new Card(
+                                  color: Colors.yellow[800],
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(17),
+                                  ),
+                                  elevation: 8.0,
+                                  child: SafeArea(
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                            height: 140,
+                                            child: Icon(
+                                              Icons.map,
+                                              color: Colors.red,
+                                              size: 70,
+                                            )),
+                                        Text(
+                                          "Surat Map",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),

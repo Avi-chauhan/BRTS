@@ -1,8 +1,4 @@
-// import 'dart:html';
-
-// import 'package:firebase/firestore.dart';
-import 'dart:html';
-
+import 'package:brts/data.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -35,7 +31,7 @@ class _view_feedbackState extends State<view_feedback> {
                 try {
                   if (snapshot.hasData) {
                     if (feedback_list.length > 0) {
-                      print("...........$feedback_list");
+                      // print("...........$feedback_list");
                       return ListView(
                         children: [
                           for (int i = 0; i < feedback_list.length; ++i)
@@ -61,35 +57,55 @@ class _view_feedbackState extends State<view_feedback> {
     );
   }
 
-class view_feedbackScreen extends StatelessWidget {
-  // final String documentId;
+  Future<void> fetchData() async {
+    await FirebaseFirestore.instance.collection('feedback').get().then(
+          (QuerySnapshot querySnapshot) => {
+            querySnapshot.docs.forEach((doc) async {
+              try {
+                var a = await FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(doc['user_id'])
+                    .get();
+                feedback_list.add(doc['comment']);
+                user_phone.add(a.data()['email']);
 
-  // const view_feedbackScreen({Key key, this.documentId}) : super(key: key);
+                // print();
+              } catch (Exception) {
+                print("error while fetching..");
+              }
+            }),
+          },
+        );
+    return Future.value(10);
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    CollectionReference feedback =
-        FirebaseFirestore.instance.collection('feedback');
-
-    return FutureBuilder<DocumentSnapshot>(
-      future: feedback.doc.get().then((QuerySnapshot qs) => {
-            qs.docs.forEach((element) {
-              print(element['comment']);
-            })
-          }),
-      builder:
-          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Text("Something went wrong");
-        }
-
-        if (snapshot.connectionState == ConnectionState.done) {
-          Map<String, dynamic> data = snapshot.data.data();
-          return Text("Full Name: ${data['comment']} ${data['user_id']}");
-        }
-
-        return Text("loading");
-      },
+  Widget feedback_card(feed, phone) {
+    // print("hi............");
+    return Card(
+      elevation: 7,
+      margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
+      borderOnForeground: false,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+        child: ListTile(
+          title: Text(
+            feed,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 18.0,
+            ),
+          ),
+          subtitle: Text(
+            phone,
+            maxLines: 1,
+            style: TextStyle(
+              fontSize: 18.0,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
