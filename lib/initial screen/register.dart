@@ -6,12 +6,9 @@ import 'package:brts/initial%20screen/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:firebase/firebase.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:image_cropper/image_cropper.dart';
-
-import 'package:path/path.dart';
 
 class Register extends StatefulWidget {
   @override

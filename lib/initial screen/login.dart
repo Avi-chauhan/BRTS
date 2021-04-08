@@ -65,18 +65,6 @@ class _LoginState extends State<Login> {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: passwd)
           .then((value) async {
-        var a = await FirebaseFirestore.instance
-            .collection('users')
-            .doc(Data.getUid())
-            .get();
-        Data.age = a.data()['age'];
-        Data.name = a.data()['name'];
-        Data.phone = a.data()['phone'];
-        Data.name = a.data()['name'];
-        Data.id = a.data()['id'];
-        Data.email = a.data()['email'];
-
-        //Map<String, dynamic> data = snapshot.data();
         if (!auth.currentUser.emailVerified) {
           _state = 0;
           auth.currentUser.sendEmailVerification();

@@ -1,6 +1,7 @@
 import 'package:brts/data.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+// import '';
 
 class view_feedback extends StatefulWidget {
   @override
@@ -9,9 +10,7 @@ class view_feedback extends StatefulWidget {
 
 class _view_feedbackState extends State<view_feedback> {
   List feedback_list = [];
-  List user_phone = [];
-  CollectionReference feedback =
-      FirebaseFirestore.instance.collection('feedback');
+  List user_email = [];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -28,57 +27,64 @@ class _view_feedbackState extends State<view_feedback> {
             backgroundColor: Colors.yellow[800],
           ),
           body: FutureBuilder(
-              future: feedback.doc().all,
+              future: fetchData(),
               builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  Map<String, dynamic> data = snapshot.data.data();
-                  feedback_list.add(data['comment']);
-                  user_phone.add(data['phone']);
-                  print("data added");
-                  if (feedback_list.length > 0) {
-                    print("...........$feedback_list");
-
-                    return ListView(
-                      children: [
-                        for (int i = 0; i < feedback_list.length; ++i)
-                          feedback_card(feedback_list[i], user_phone[i]),
-                      ],
+                try {
+                  if (snapshot.hasData) {
+                    if (feedback_list.length > 0) {
+                      print("...........$feedback_list");
+                      return ListView(
+                        children: [
+                          for (int i = 0; i < feedback_list.length; ++i)
+                            feedback_card(feedback_list[i], user_email[i]),
+                        ],
+                      );
+                    }
+                  } else if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return Data.loadingDialog();
+                  } else
+                    return Center(
+                      child: Container(
+                        child: Text("No feedbacks..."),
+                      ),
                     );
-                  }
+                } catch (e) {
+                  Text("hi exception....");
                 }
-                return Center(
-                  child: Container(
-                    child: Text("No feedbacks..."),
-                  ),
-                );
               })),
     );
   }
 
+  bool datafetched = false;
   Future<void> fetchData() async {
+    if (datafetched) return Future.value(true);
+    feedback_list.clear();
+    user_email.clear();
     await FirebaseFirestore.instance.collection('feedback').get().then(
           (QuerySnapshot querySnapshot) => {
             querySnapshot.docs.forEach((doc) async {
               try {
+                feedback_list.add(doc['comment']);
+                user_email.add(doc['email']);
                 var a = await FirebaseFirestore.instance
                     .collection('users')
                     .doc(doc['user_id'])
                     .get();
-                feedback_list.add(doc['comment']);
-                user_phone.add(a.data()['email']);
-
-                // print();
               } catch (Exception) {
                 print("error while fetching..");
               }
             }),
           },
         );
+    setState(() {
+      datafetched = true;
+    });
     return Future.value(10);
   }
 
   Widget feedback_card(feed, phone) {
-    // print("hi............");
+    print("hi............");
     return Card(
       elevation: 7,
       margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
