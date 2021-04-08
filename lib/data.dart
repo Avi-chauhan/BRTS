@@ -8,7 +8,7 @@ import 'dart:async';
 import 'initial screen/login.dart';
 
 class Data {
-  static var name, email, passwd, cpasswd;
+  static var name, email, passwd, cpasswd, comment, id;
   static var gender = 'Male', phone, age;
   //Members of task:
 

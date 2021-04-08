@@ -10,6 +10,8 @@ class view_feedback extends StatefulWidget {
 class _view_feedbackState extends State<view_feedback> {
   List feedback_list = [];
   List user_phone = [];
+  CollectionReference feedback =
+      FirebaseFirestore.instance.collection('feedback');
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -26,32 +28,28 @@ class _view_feedbackState extends State<view_feedback> {
             backgroundColor: Colors.yellow[800],
           ),
           body: FutureBuilder(
-              future: fetchData(),
+              future: feedback.doc().all,
               builder: (context, snapshot) {
-                try {
-                  if (snapshot.hasData) {
-                    if (feedback_list.length > 0) {
-                      // print("...........$feedback_list");
-                      return ListView(
-                        children: [
-                          for (int i = 0; i < feedback_list.length; ++i)
-                            feedback_card(feedback_list[i], user_phone[i]),
-                        ],
-                      );
-                    }
-                  } else
-                    return Center(
-                      child: Container(
-                        child: Text("No feedbacks..."),
-                      ),
+                if (snapshot.hasData) {
+                  Map<String, dynamic> data = snapshot.data.data();
+                  feedback_list.add(data['comment']);
+                  user_phone.add(data['phone']);
+                  print("data added");
+                  if (feedback_list.length > 0) {
+                    print("...........$feedback_list");
+
+                    return ListView(
+                      children: [
+                        for (int i = 0; i < feedback_list.length; ++i)
+                          feedback_card(feedback_list[i], user_phone[i]),
+                      ],
                     );
-                } catch (e) {
-                  Text("hi exception....");
+                  }
                 }
                 return Center(
                   child: Container(
-                      child:
-                          Text("Loading....", style: TextStyle(fontSize: 30))),
+                    child: Text("No feedbacks..."),
+                  ),
                 );
               })),
     );
