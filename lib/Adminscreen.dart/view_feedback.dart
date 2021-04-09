@@ -28,7 +28,7 @@ class _view_feedbackState extends State<view_feedback> {
             backgroundColor: Colors.yellow[800],
           ),
           body: FutureBuilder(
-              future: feedback.doc().all,
+              future: feedback.get(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   Map<String, dynamic> data = snapshot.data.data();
