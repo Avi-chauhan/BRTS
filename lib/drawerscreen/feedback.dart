@@ -69,7 +69,15 @@ class _feedbackScreenState extends State<feedbackScreen> {
           'comment': comment,
           'email': Data.email,
           'user_id': Data.getUid(),
-        }).then((value) {
+        }).then((value) async {
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(Data.getUid())
+              .collection("feedback")
+              .add({
+            'comment': comment,
+          });
+
           Data.showToast('Thanks for your valuable feedback');
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (BuildContext context) => Home()));

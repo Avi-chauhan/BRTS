@@ -15,44 +15,45 @@ class _view_feedbackState extends State<view_feedback> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          appBar: new AppBar(
-            leading: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              ),
-              onPressed: () => Navigator.of(context).pop(),
+        appBar: new AppBar(
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
             ),
-            title: new Text("View Feedback"),
-            backgroundColor: Colors.yellow[800],
+            onPressed: () => Navigator.of(context).pop(),
           ),
-          body: FutureBuilder(
-              future: fetchData(),
-              builder: (context, snapshot) {
-                try {
-                  if (snapshot.hasData) {
-                    if (feedback_list.length > 0) {
-                      print("...........$feedback_list");
-                      return ListView(
-                        children: [
-                          for (int i = 0; i < feedback_list.length; ++i)
-                            feedback_card(feedback_list[i], user_email[i]),
-                        ],
-                      );
-                    }
-                  } else if (snapshot.connectionState ==
-                      ConnectionState.waiting) {
-                    return Data.loadingDialog();
-                  } else
-                    return Center(
-                      child: Container(
-                        child: Text("No feedbacks..."),
-                      ),
+          title: new Text("View Feedback"),
+          backgroundColor: Colors.yellow[800],
+        ),
+        body: FutureBuilder(
+            future: fetchData(),
+            builder: (context, snapshot) {
+              try {
+                if (snapshot.hasData) {
+                  if (feedback_list.length > 0) {
+                    print("...........$feedback_list");
+                    return ListView(
+                      children: [
+                        for (int i = 0; i < feedback_list.length; ++i)
+                          feedback_card(feedback_list[i], user_email[i]),
+                      ],
                     );
-                } catch (e) {
-                  Text("hi exception....");
-                }
-              })),
+                  }
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return Data.loadingDialog();
+                } else
+                  return Center(
+                    child: Container(
+                      child: Text("No feedbacks..."),
+                    ),
+                  );
+              } catch (e) {
+                Text("hi exception....");
+              }
+            }),
+      ),
     );
   }
 
