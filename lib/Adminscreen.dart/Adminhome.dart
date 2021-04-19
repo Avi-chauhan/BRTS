@@ -1,3 +1,4 @@
+import 'package:brts/Adminscreen.dart/mo_station.dart';
 import 'package:brts/data.dart';
 import 'package:brts/initial%20screen/login.dart';
 import "package:flutter/material.dart";
@@ -17,8 +18,8 @@ class Admin extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: new AppBar(
-          title: new Text("Welcome Admin !"),
+        appBar: AppBar(
+          title: Text("Welcome Admin !"),
           backgroundColor: Colors.yellow[800],
         ),
         drawer: Drawer(
@@ -156,13 +157,22 @@ class _AdminPageScreenState extends State<AdminPageScreen> {
                                 child: SafeArea(
                                   child: Column(
                                     children: [
-                                      Container(
-                                          height: 140,
-                                          child: Icon(
-                                            Icons.add_road,
-                                            color: Colors.red,
-                                            size: 70,
-                                          )),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      mo_station()));
+                                        },
+                                        child: Container(
+                                            height: 140,
+                                            child: Icon(
+                                              Icons.add_road,
+                                              color: Colors.red,
+                                              size: 70,
+                                            )),
+                                      ),
                                       Text(
                                         "Modify stations",
                                         style: TextStyle(

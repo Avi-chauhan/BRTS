@@ -62,9 +62,14 @@ class _LoginState extends State<Login> {
       tmp = false;
     });
     try {
-      UserCredential userCredential = await FirebaseAuth.instance
+      await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: passwd)
           .then((value) async {
+        DocumentSnapshot snapshot = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(Data.getUid())
+            .get();
+        Map<String, dynamic> data = snapshot.data();
         if (!auth.currentUser.emailVerified) {
           _state = 0;
           auth.currentUser.sendEmailVerification();
@@ -77,10 +82,14 @@ class _LoginState extends State<Login> {
               .collection("users")
               .doc(Data.getUid())
               .get();
-          var b;
-          b = a.data()['name'];
-          //print('gggggggggggggggggggggggggggg$b');
-          if (b != 'Admin')
+
+          Data.name = a.data()['name'];
+          Data.email = a.data()['email'];
+          Data.phone = a.data()['phone'];
+          Data.age = a.data()['Age'];
+          Data.gender = a.data()['Gender'];
+
+          if (Data.email != 'brts999@gmail.com')
             Navigator.pushNamedAndRemoveUntil(
                 context, '/Home', (route) => false);
           else
