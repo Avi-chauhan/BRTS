@@ -164,54 +164,58 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 new Container(
                   height: MediaQuery.of(context).size.height / 4,
                   width: MediaQuery.of(context).size.width,
-                  child: Stack(alignment: Alignment.center, children: [
-                    Image.asset(
-                      'images/cloud.jpg',
-                      fit: BoxFit.fill,
-                      width: MediaQuery.of(context).size.width,
-                      height: 250,
-                    ),
-                    Marquee(
-                      text: "Welcome To BRTS",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
+                  child: SafeArea(
+                    child: Stack(alignment: Alignment.center, children: [
+                      Image.asset(
+                        'images/cloud.jpg',
+                        fit: BoxFit.fill,
+                        width: MediaQuery.of(context).size.width,
+                        height: 250,
                       ),
-                      scrollAxis: Axis.horizontal,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      blankSpace: 10.0,
-                      velocity: 100.0,
-                      pauseAfterRound: Duration(seconds: 0),
-                      startPadding: 10.0,
-                      accelerationDuration: Duration(seconds: 1),
-                      accelerationCurve: Curves.bounceOut,
-                      decelerationDuration: Duration(milliseconds: 500),
-                      decelerationCurve: Curves.easeOut,
-                    ),
-                    Row(children: [
-                      SizedBox(
-                        width: 225,
-                      ),
-                      Icon(
-                        Icons.access_time_outlined,
-                        size: 34.0,
-                        color: Colors.black,
-                      ),
-                      Text(
-                        _timeString,
+                      Marquee(
+                        text: "Welcome To BRTS",
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
-                          fontSize: 20,
                         ),
+                        scrollAxis: Axis.horizontal,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        blankSpace: 10.0,
+                        velocity: 100.0,
+                        pauseAfterRound: Duration(seconds: 0),
+                        startPadding: 10.0,
+                        accelerationDuration: Duration(seconds: 1),
+                        accelerationCurve: Curves.bounceOut,
+                        decelerationDuration: Duration(milliseconds: 500),
+                        decelerationCurve: Curves.easeOut,
+                      ),
+                      SafeArea(
+                        child: Row(children: [
+                          SizedBox(
+                            width: 200,
+                          ),
+                          Icon(
+                            Icons.access_time_outlined,
+                            size: 34.0,
+                            color: Colors.black,
+                          ),
+                          Text(
+                            _timeString,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ]),
                       ),
                     ]),
-                  ]),
+                  ),
                 ),
                 SingleChildScrollView(
                   child: SafeArea(
                     child: Container(
-                      height: 460,
+                      height: 420,
                       child: GridView.count(
                         crossAxisCount: 2,
                         scrollDirection: Axis.vertical,
