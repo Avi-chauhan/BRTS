@@ -13,6 +13,7 @@ import 'package:marquee/marquee.dart';
 import 'package:brts/Adminscreen.dart/map.dart';
 import 'package:brts/Adminscreen.dart/view_feedback.dart';
 import 'package:brts/AdminScreen.dart/mo_bus.dart';
+import 'package:brts/Adminscreen.dart/mo_fair.dart';
 
 class Admin extends StatelessWidget {
   @override
@@ -308,13 +309,22 @@ class _AdminPageScreenState extends State<AdminPageScreen> {
                                 child: SafeArea(
                                   child: Column(
                                     children: [
-                                      Container(
-                                          height: 140,
-                                          child: Icon(
-                                            Icons.attach_money,
-                                            color: Colors.red,
-                                            size: 70,
-                                          )),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      mo_fair()));
+                                        },
+                                        child: Container(
+                                            height: 140,
+                                            child: Icon(
+                                              Icons.attach_money,
+                                              color: Colors.red,
+                                              size: 70,
+                                            )),
+                                      ),
                                       Text(
                                         "Modify Fair",
                                         style: TextStyle(

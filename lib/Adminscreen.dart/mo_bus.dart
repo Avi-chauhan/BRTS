@@ -251,7 +251,6 @@ class _mo_busState extends State<mo_bus> {
                   textAlign: TextAlign.left,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: 18.0),
                 ),
               Text(
                 time,
