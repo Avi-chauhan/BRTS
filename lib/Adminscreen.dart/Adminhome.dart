@@ -12,6 +12,7 @@ import 'dart:async';
 import 'package:marquee/marquee.dart';
 import 'package:brts/Adminscreen.dart/map.dart';
 import 'package:brts/Adminscreen.dart/view_feedback.dart';
+import 'package:brts/AdminScreen.dart/mo_bus.dart';
 
 class Admin extends StatelessWidget {
   @override
@@ -265,13 +266,22 @@ class _AdminPageScreenState extends State<AdminPageScreen> {
                                 child: SafeArea(
                                   child: Column(
                                     children: [
-                                      Container(
-                                          height: 140,
-                                          child: Icon(
-                                            Icons.directions_bus,
-                                            color: Colors.red,
-                                            size: 70,
-                                          )),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      mo_bus()));
+                                        },
+                                        child: Container(
+                                            height: 140,
+                                            child: Icon(
+                                              Icons.directions_bus,
+                                              color: Colors.red,
+                                              size: 70,
+                                            )),
+                                      ),
                                       Text(
                                         "Modify Bus",
                                         style: TextStyle(
