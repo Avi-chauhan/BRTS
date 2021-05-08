@@ -29,9 +29,8 @@ dependencies:
   firebase_auth:
   firebase_analytics:
   flutter_clean_calendar: ^1.0.2+1
-  date_time_picker: "^1.1.0"
   fluttertoast:
-  mailto: ^1.1.0  
+  date_time_picker: 
   cloud_firestore:
   cloud_firestore_web:
   firebase:

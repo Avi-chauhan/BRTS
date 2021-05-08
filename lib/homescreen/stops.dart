@@ -37,7 +37,7 @@ class _stopsState extends State<stops> {
             ),
             onPressed: () => Navigator.of(context).pop(),
           ),
-          title: new Text("Surat BRTS"),
+          title: new Text("Stations"),
           backgroundColor: Colors.yellow[800],
         ),
         // body: mytripsScreen(),

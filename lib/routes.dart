@@ -1,4 +1,6 @@
 import 'package:brts/Adminscreen.dart/Adminhome.dart';
+import 'package:brts/Adminscreen.dart/mo_bus.dart';
+import 'package:brts/Adminscreen.dart/mo_fair.dart';
 import 'package:brts/Adminscreen.dart/mo_station.dart';
 import 'package:brts/drawerscreen/contactus.dart';
 import 'package:brts/drawerscreen/feedback.dart';
@@ -30,6 +32,8 @@ Map<String, WidgetBuilder> routes = {
   '/mytickets': (c) => mytickets(),
   '/schedule': (c) => schedule(),
   '/suratmap': (c) => suratmap(),
+  '/mo_bus': (c) => mo_bus(),
+  '/mo_fair': (c) => mo_fair(),
   '/stops': (c) => stops(),
   '/mo_station': (c) => mo_station(),
   '/mytrips': (c) => mytrips(),

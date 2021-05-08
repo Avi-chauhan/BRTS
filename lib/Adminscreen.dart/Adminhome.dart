@@ -272,8 +272,9 @@ class _AdminPageScreenState extends State<AdminPageScreen> {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      mo_bus()));
+                                                  builder:
+                                                      (BuildContext context) =>
+                                                          mo_bus()));
                                         },
                                         child: Container(
                                             height: 140,

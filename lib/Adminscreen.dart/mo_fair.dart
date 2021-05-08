@@ -10,7 +10,7 @@ class mo_fair extends StatefulWidget {
 }
 
 class _mo_fairState extends State<mo_fair> {
-  int fair;
+  String fair;
   String temp;
   TextEditingController _con;
   // // @override
@@ -32,96 +32,96 @@ class _mo_fairState extends State<mo_fair> {
             ),
             onPressed: () => Navigator.of(context).pop(),
           ),
-          title: new Text("View Feedback"),
+          title: new Text("Modify Fair"),
           backgroundColor: Colors.yellow[800],
         ),
         body: Center(
-          child: Column(
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 3 / 8 - 20,
-              ),
-              FutureBuilder(
-                  future: fetchData(),
-                  builder: (context, snapshot) {
-                    try {
-                      if (snapshot.hasData) {
-                        return Text(
-                          "fair = " + fair.toString(),
-                          style: TextStyle(
-                              fontSize: 18.0, fontWeight: FontWeight.bold),
-                        );
-                      } else if (snapshot.connectionState ==
-                          ConnectionState.waiting) {
-                        return Data.loadingDialog();
-                      } else
-                        return Center(
-                          child: Container(
-                            child: Text("No fair..."),
-                          ),
-                        );
-                    } catch (e) {
-                      return Container(child: Text("hi exception...."));
-                    }
-                  }),
-              SizedBox(
-                height: 20,
-              ),
-              RaisedButton(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: Text(
-                            "modify fare\nCurrent Fare = " + fair.toString(),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                FutureBuilder(
+                    future: fetchData(),
+                    builder: (context, snapshot) {
+                      try {
+                        if (snapshot.hasData) {
+                          return Text(
+                            "Current Fair = " + fair,
                             style: TextStyle(
-                                color: Colors.redAccent,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 19.0),
-                          ),
-                          content: Column(
-                            children: [
-                              TextField(
-                                inputFormatters: <TextInputFormatter>[
-                                  FilteringTextInputFormatter.digitsOnly
-                                ],
-                                onChanged: (value) {
-                                  // fair = int.parse(_con.text);
-                                  setState(() {
-                                    fair = value as int;
-                                    temp = value;
-                                  });
-                                },
-                                enableInteractiveSelection: false,
-                                controller: _con,
-                                decoration:
-                                    InputDecoration(hintText: "New Fare"),
+                                fontSize: 18.0, fontWeight: FontWeight.bold),
+                          );
+                        } else if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Data.loadingDialog();
+                        } else
+                          return Center(
+                            child: Container(
+                              child: Text("No fair..."),
+                            ),
+                          );
+                      } catch (e) {
+                        return Container(child: Text("hi exception...."));
+                      }
+                    }),
+                SizedBox(
+                  height: 20,
+                ),
+                RaisedButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return SingleChildScrollView(
+                            child: AlertDialog(
+                              title: Text(
+                                "Modify fare\nCurrent Fare = " + fair,
+                                style: TextStyle(
+                                    color: Colors.redAccent,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 19.0),
                               ),
-                              RaisedButton(
-                                  child: Text("confirm"),
-                                  color: Colors.redAccent,
-                                  textColor: Colors.white,
-                                  onPressed: () async {
-                                    print("faire odddd : " + fair.toString());
-                                    await FirebaseFirestore.instance
-                                        .collection('fare')
-                                        .doc('fare')
-                                        .set({'fare': fair});
-                                    Data.showToast("fare has been changed");
-                                    Navigator.popAndPushNamed(
-                                        context, '/mo_fair');
-                                  })
-                            ],
-                          ),
-                        );
-                      });
-                },
-                child: Text("modify fair"),
-                color: Colors.redAccent,
-                textColor: Colors.white,
-              )
-            ],
+                              content: Column(
+                                children: [
+                                  TextField(
+                                    keyboardType: TextInputType.number,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        fair = value;
+                                      });
+                                    },
+                                    // enableInteractiveSelection: false,
+                                    // controller: _con,
+                                    decoration:
+                                        InputDecoration(hintText: "New Fare"),
+                                  ),
+                                  RaisedButton(
+                                      child: Text("confirm"),
+                                      color: Colors.redAccent,
+                                      textColor: Colors.white,
+                                      onPressed: () async {
+                                        print("Fair added : " + fair);
+                                        await FirebaseFirestore.instance
+                                            .collection('fair')
+                                            .doc('fair')
+                                            .set({'fair': fair});
+                                        Data.showToast(
+                                            "Fair has been changed Successfully...");
+                                        Navigator.of(context).pop();
+                                      })
+                                ],
+                              ),
+                            ),
+                          );
+                        });
+                  },
+                  child: Text("modify fair"),
+                  color: Colors.redAccent,
+                  textColor: Colors.white,
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -131,23 +131,9 @@ class _mo_fairState extends State<mo_fair> {
   bool datafetched = false;
   Future<void> fetchData() async {
     if (datafetched) return Future.value(true);
-    fair = 0;
-    // await FirebaseFirestore.instance.collection('fair').get().then(
-    //       (QuerySnapshot querySnapshot) => {
-    //         querySnapshot.docs.forEach((doc) async {
-    //           try {
-    //             fair = doc['fair'];
-    //           } catch (Exception) {
-    //             print("error while fetching..");
-    //           }
-    //         }),
-    //       },
-    //     );
-    var a = await FirebaseFirestore.instance
-        .collection("fare")
-        .doc("fare")
-        .get()
-        .then((value) => {fair = int.parse(value.get('fare'))});
+    var a =
+        await FirebaseFirestore.instance.collection("fair").doc("fair").get();
+    fair = await a.data()['fair'];
 
     setState(() {
       datafetched = true;

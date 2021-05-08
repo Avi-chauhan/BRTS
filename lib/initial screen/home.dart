@@ -330,7 +330,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                               size: 70,
                                             )),
                                         Text(
-                                          "Stops",
+                                          "Stations",
                                           style: TextStyle(
                                               fontSize: 18,
                                               color: Colors.white,
